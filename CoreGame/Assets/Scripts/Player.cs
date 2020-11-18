@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-
     private Rigidbody2D rb;
     private Animator anim;
     private SpriteRenderer sprite;
     
     private bool grounded;
     private Vector3 initialPosition;
-
 
     public float speed = 3f;
     public float jumpPower = 5f;
@@ -54,9 +52,9 @@ public class Player : MonoBehaviour
             anim.SetBool("Walking", false);
         }
 
-        if (rb.transform.position.y < -2.5)
+        if (transform.position.y < -2.5)
         {
-            rb.transform.position = initialPosition;
+            transform.position = initialPosition;
             grounded = true;
             Debug.Log("Te has muerto");
         }
