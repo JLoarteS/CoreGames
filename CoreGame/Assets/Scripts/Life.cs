@@ -6,9 +6,9 @@ using UnityEngine;
 public class Life : MonoBehaviour
 {
     public GameObject player;
-    private SpriteRenderer[] sprites;
+    private static SpriteRenderer[] sprites;
 
-    public int vidas = 3;
+    public static int vidas = 3;
     
     // Start is called before the first frame update
     void Start()
@@ -22,23 +22,22 @@ public class Life : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (player.transform.position.y < -2.5)
+
+        if (vidas == 0)
         {
-            sprites[--vidas].enabled = false;
+            Debug.Log("Moristes del todo");
 
-            if (vidas == 0)
-            {
-                Debug.Log("Moristes del todo");
-
-                #if UNITY_EDITOR
-                    if (EditorUtility.DisplayDialog("Muerto", "Te has quedado sin vidas, Quieres una vida más?", "Si", "No"))
-                    {
-                        sprites[vidas++].enabled = true;
-                    }
-                    else
-                        Debug.Break();
-                #endif
-            }
+            #if UNITY_EDITOR
+            if (EditorUtility.DisplayDialog("Muerto", "Te has quedado sin vidas, Quieres una vida más?", "Si", "No"))
+                sprites[vidas++].enabled = true;
+            else
+                Debug.Break();
+            #endif
         }
+    }
+
+    public static void QuitarVida ()
+    {
+        sprites[--vidas].enabled = false;
     }
 }

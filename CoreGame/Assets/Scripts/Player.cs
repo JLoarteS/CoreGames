@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         grounded = false;
-        initialPosition = new Vector3(-7.56f, -1.48f, 1f);
+        initialPosition = new Vector3(-9.3f, -1.5f, 1f);
 
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
@@ -54,9 +54,7 @@ public class Player : MonoBehaviour
 
         if (transform.position.y < -2.5)
         {
-            transform.position = initialPosition;
-            grounded = true;
-            Debug.Log("Te has muerto");
+            Death();
         }
     }
 
@@ -67,6 +65,11 @@ public class Player : MonoBehaviour
             grounded = true;
             anim.SetBool("Jumping", false);
         }
+
+        if (collision.gameObject.tag == "Enemi")
+        {
+            Death();
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -75,5 +78,14 @@ public class Player : MonoBehaviour
         {
             grounded = false;
         }
+    }
+
+    public void Death()
+    {
+        transform.position = initialPosition;
+        grounded = true;
+        Debug.Log("Te has muerto");
+
+        Life.QuitarVida();
     }
 }
